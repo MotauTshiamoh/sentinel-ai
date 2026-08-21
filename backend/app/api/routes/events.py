@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from app.schemas.security_event import SecurityEvent
+from app.services.event_service import process_security_event
 
 router = APIRouter(
     prefix="/events",
@@ -9,7 +10,4 @@ router = APIRouter(
 
 @router.post("/")
 def create_security_event(event: SecurityEvent):
-    return {
-        "message": "Security event received",
-        "event": event.model_dump()
-    }
+    return process_security_event(event)
